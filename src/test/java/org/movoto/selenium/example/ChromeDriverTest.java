@@ -1,25 +1,24 @@
 package org.movoto.selenium.example;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.MarionetteDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by haozuo on 3/22/16.
@@ -30,7 +29,7 @@ public class ChromeDriverTest {
     private WebDriver driver;
 
     @Before
-    public void prepare() {
+    public void prepare() throws IOException {
         //setup chromedriver
         System.setProperty(
                 "webdriver.chrome.driver",
@@ -41,12 +40,16 @@ public class ChromeDriverTest {
         WebDriver driver = new ChromeDriver(options);
         
 
-        testUrl = "https://leftstick.github.io/";
+        driver.get("https://www.facebook.com/");
+        driver.get("https://www.google.co.in/");
+        System.out.println("title is: " + driver.getTitle());
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("pathTOSaveFile"));
 
         // Create a new instance of the Chrome driver
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.
-        driver = new ChromeDriver();
+        //driver = new ChromeDriver();
 
         //maximize window
         driver.manage().window().maximize();
@@ -54,7 +57,7 @@ public class ChromeDriverTest {
         // And now use this to visit myBlog
         // Alternatively the same thing can be done like this
         // driver.navigate().to(testUrl);
-        driver.get(testUrl);
+        //driver.get(testUrl);
     }
 
     @Test
