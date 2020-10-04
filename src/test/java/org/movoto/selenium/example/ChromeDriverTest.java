@@ -1,6 +1,7 @@
 package org.movoto.selenium.example;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,6 +36,10 @@ public class ChromeDriverTest {
         //driver = new ChromeDriver();
 
         //maximize window
+        driver.get("https://en.wikipedia.org/wiki/Main_Page");
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+        String title = driver.getTitle();
+        System.out.println("............................................................................."+title);
         driver.manage().window().maximize();
 
         // And now use this to visit myBlog
@@ -67,9 +72,11 @@ public class ChromeDriverTest {
 
     @Test
     public void test() {
-        driver.get("https://en.wikipedia.org/wiki/Main_Page");
-        String title = driver.getTitle();
-        System.out.println(title);
+		/*
+		 * driver.get("https://en.wikipedia.org/wiki/Main_Page");
+		 * driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS); String title
+		 * = driver.getTitle(); System.out.println(title);
+		 */
     }
 
  
